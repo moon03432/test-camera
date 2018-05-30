@@ -10,9 +10,10 @@
 
 using namespace cv;
 
-int main(int, char**)
+int main(int, char* argv[] )
 {
-    VideoCapture cap(0); // open the default camera
+	int cameraIdx = atoi(argv[1]);
+    VideoCapture cap(cameraIdx); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return -1;
     
