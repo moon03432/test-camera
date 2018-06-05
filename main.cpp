@@ -9,11 +9,27 @@
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
+using namespace std;
+
+VideoCapture getCaptureFromIndexOrIp(const char *str) {
+    if (strcmp(str, "0") == 0 || strcmp(str, "1") == 0) {
+        // use camera index
+        int camera_id = atoi(str);
+        cout << "camera index: " << camera_id << endl;
+        VideoCapture camera(camera_id);
+        return camera;
+    } else {
+        string camera_ip = str;
+        cout << "camera ip: " << camera_ip << endl;
+        string camera_stream = "rtsp://admin:Mcdonalds@" + camera_ip + ":554//Streaming/Channels/1";
+        VideoCapture camera(camera_stream);
+        return camera;
+    }
+}
 
 int main(int, char* argv[] )
 {
-	int cameraIdx = atoi(argv[1]);
-    VideoCapture cap(cameraIdx); // open the default camera
+    VideoCapture cap = getCaptureFromIndexOrIp(argv[1]);; // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return -1;
     
