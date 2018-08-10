@@ -11,25 +11,43 @@
 using namespace cv;
 using namespace std;
 
-VideoCapture getCaptureFromIndexOrIp(const char *str) {
-    if (strcmp(str, "0") == 0 || strcmp(str, "1") == 0) {
+VideoCapture getCaptureFromIndexOrIp(const string str) {
+    if ( str == "0" || str == "1") {
         // use camera index
-        int camera_id = atoi(str);
+        int camera_id = atoi(str.c_str());
         cout << "camera index: " << camera_id << endl;
         VideoCapture camera(camera_id);
         return camera;
     } else {
         string camera_ip = str;
         cout << "camera ip: " << camera_ip << endl;
-        string camera_stream = "rtsp://admin:Mcdonalds@" + camera_ip + ":554//Streaming/Channels/1";
+        string camera_stream = "rtsp://admin:mcd12345678@" + camera_ip + ":554//Streaming/Channels/1";
         VideoCapture camera(camera_stream);
         return camera;
     }
 }
 
-int main(int, char* argv[] )
-{
-    VideoCapture cap = getCaptureFromIndexOrIp(argv[1]);; // open the default camera
+int main(int argc, char* argv[] ) {
+
+    const String keys =
+        "{help h  |      | print this message   }"
+        "{@index  |0     | camera index         }"
+    ;
+
+    CommandLineParser parser(argc, argv, keys);
+    parser.about("camera reader");
+    if (parser.has("help")) {
+        parser.printMessage();
+        return 0;
+    }
+
+    string camera_index = parser.get<String>(0);
+
+    if (!parser.check()) {
+        parser.printErrors();
+        return 0;
+    }
+    VideoCapture cap = getCaptureFromIndexOrIp(camera_index);; // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return -1;
     

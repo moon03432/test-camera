@@ -1,4 +1,4 @@
 # test camera
 ```sh
-./main 0
+./read-camera 0
 ```
