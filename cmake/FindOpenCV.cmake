@@ -79,6 +79,10 @@ endif()
 set(OpenCV_CONFIG_PATH "${CMAKE_CURRENT_LIST_DIR}")
 get_filename_component(OpenCV_INSTALL_PATH "${OpenCV_CONFIG_PATH}/" REALPATH)
 
+message(STATUS "OpenCV_CONFIG_PATH: ${OpenCV_CONFIG_PATH}")
+message(STATUS "OpenCV_INSTALL_PATH: ${OpenCV_INSTALL_PATH}")
+message(STATUS "CMAKE_LIBRARY_ARCHITECTURE: ${CMAKE_LIBRARY_ARCHITECTURE}")
+
 # Search packages for host system instead of packages for target system.
 # in case of cross compilation this macro should be defined by toolchain file
 if(NOT COMMAND find_host_package)
@@ -100,13 +104,13 @@ endif()
 
 
 # Some additional settings are required if OpenCV is built as static libs
-set(OpenCV_SHARED ON)
+set(OpenCV_SHARED OFF)
 
 # Enables mangled install paths, that help with side by side installs
 set(OpenCV_USE_MANGLED_PATHS FALSE)
 
 set(OpenCV_LIB_COMPONENTS opencv_objdetect;opencv_stitching;opencv_video;opencv_flann;opencv_core;opencv_highgui;opencv_features2d;opencv_photo;opencv_videostab;opencv_imgproc;opencv_shape;opencv_imgcodecs;opencv_videoio;opencv_superres;opencv_dnn;opencv_ml;opencv_calib3d)
-set(OpenCV_INCLUDE_DIRS "/home/moon/Codes/opencv-3.4.2/build" "/home/moon/Codes/opencv-3.4.2/include" "/home/moon/Codes/opencv-3.4.2/include/opencv" "/home/moon/Codes/opencv-3.4.2/modules/core/include" "/home/moon/Codes/opencv-3.4.2/modules/flann/include" "/home/moon/Codes/opencv-3.4.2/modules/imgproc/include" "/home/moon/Codes/opencv-3.4.2/modules/ml/include" "/home/moon/Codes/opencv-3.4.2/modules/objdetect/include" "/home/moon/Codes/opencv-3.4.2/modules/photo/include" "/home/moon/Codes/opencv-3.4.2/modules/video/include" "/home/moon/Codes/opencv-3.4.2/modules/dnn/include" "/home/moon/Codes/opencv-3.4.2/modules/imgcodecs/include" "/home/moon/Codes/opencv-3.4.2/modules/shape/include" "/home/moon/Codes/opencv-3.4.2/modules/videoio/include" "/home/moon/Codes/opencv-3.4.2/modules/highgui/include" "/home/moon/Codes/opencv-3.4.2/modules/superres/include" "/home/moon/Codes/opencv-3.4.2/modules/ts/include" "/home/moon/Codes/opencv-3.4.2/modules/features2d/include" "/home/moon/Codes/opencv-3.4.2/modules/calib3d/include" "/home/moon/Codes/opencv-3.4.2/modules/stitching/include" "/home/moon/Codes/opencv-3.4.2/modules/videostab/include")
+set(OpenCV_INCLUDE_DIRS "/usr/local/include/opencv" "/usr/local/include")
 
 if(NOT TARGET opencv_core)
   include(${CMAKE_CURRENT_LIST_DIR}/OpenCVModules${OpenCV_MODULES_SUFFIX}.cmake)
@@ -313,3 +317,5 @@ endmacro()
 # installation directory for the status.
 find_package_handle_standard_args(OpenCV REQUIRED_VARS OpenCV_INSTALL_PATH
                                   VERSION_VAR OpenCV_VERSION ${_OpenCV_FPHSA_ARGS})
+
+message(STATUS "OpenCV_LIBS: ${OpenCV_LIBS}")
