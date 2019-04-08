@@ -6,6 +6,7 @@
 //  Copyright © 2018 tyrion. All rights reserved.
 //
 
+#include <iostream>
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
