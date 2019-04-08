@@ -49,8 +49,10 @@ int main(int argc, char* argv[] ) {
         return 0;
     }
     VideoCapture cap = getCaptureFromIndexOrIp(camera_index);; // open the default camera
-    if(!cap.isOpened())  // check if we succeeded
+    if(!cap.isOpened()) {  // check if we succeeded
+        cout << "video capture failed!" << endl;
         return -1;
+    }
     
     namedWindow("frames",1);
     for(;;)
