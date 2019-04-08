@@ -30,7 +30,7 @@ VideoCapture getCaptureFromIndexOrIp(const string str) {
 
 int main(int argc, char* argv[] ) {
 
-    const String keys =
+    const string keys =
         "{help h  |      | print this message   }"
         "{@index  |0     | camera index         }"
     ;
@@ -42,7 +42,7 @@ int main(int argc, char* argv[] ) {
         return 0;
     }
 
-    string camera_index = parser.get<String>(0);
+    string camera_index = parser.get<string>(0);
 
     if (!parser.check()) {
         parser.printErrors();
